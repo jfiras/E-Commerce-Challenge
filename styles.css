@@ -1,25 +1,31 @@
 #logo {
-    width: 40px;
-    height: auto;
+  width: 40px;
+  height: auto;
 }
 
-#my-cart {
-    width: 20px;
-    height: auto;
+#my-card {
+  width: 20px;
+  height: auto;
 }
 
 .carousel-caption {
-    color:black;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: black;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 #phones {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .p-2 img {
-    height: 320px;
+  height: 320px;
 }
 
+.disabledLink {
+  pointer-events: none;
+  color: #888;
+  opacity: 0.5;
+}

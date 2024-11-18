@@ -110,10 +110,17 @@ var product10 = {
 }
 var products = [product1, product2, product3, product4, product5, product6, product7, product8, product9, product10];
 
+// Adding the functionality of local storage
+let purchase = JSON.parse(localStorage.getItem('purchase')) || [];
+let totalPurchase = 0;
+
 $("document").ready(function () {
 
-    //function to display according to the brand
-    function displayBrand(brand) {
+    // Initialize the badge of the purchase with the number of purchased products
+    $("#nbr-purchase").text(purchase.length);
+
+    // Function to display according to the brand
+    function displayByBrand(brand) {
         for (let i = 0; i < products.length; i++) {
             var brand1 = brand;
             if (brand1 === "all") {
@@ -130,8 +137,8 @@ $("document").ready(function () {
                     + " alt='Card image cap'><div class='card-body'><h5 class='card-title'>"
                     + products[i].name
                     + "</h5><p class='card-text'>"
-                    + products[i].description
-                    + "</p></div><ul class='list-group list-group-flush'>"
+                    + products[i].description.slice(0, 140)
+                    + "...</p></div><ul class='list-group list-group-flush'>"
                     + "<li class='list-group-item'><b>RAM : </b>"
                     + products[i].ram
                     + " Go</li>"
@@ -147,49 +154,170 @@ $("document").ready(function () {
                     + "<li class='list-group-item'><b>Disponibility : </b>"
                     + stock
                     + "</li></ul>"
-                    + "<div class='card-body'><a href='#' class='card-link'>More Info</a>"
-                    + "<a href='#' class='card-link' id='add-cart'>Add To Card</a>"
+                    + "<div class='card-body'><a href='#' class='card-link' id='info-card" + i + "' data-toggle='modal' data-target='#exampleModalCenter'>More Info</a>"
+                    + "<a href='#' class='card-link' id='add-card" + i + "'>Add To Card</a>"
                     + "</div></div>"
                 );
+
                 //Deactivate button add to cart for those who not in stock
-                if (products[i].disponibility) {
-                    $("#add-cart").css( "pointer-events", "none" ); // Doesn't work
+                if (!products[i].disponibility) {
+                    let idCard = "#add-card" + i;
+                    $(idCard).addClass("disabledLink");
                 }
             }
         }
     }
 
-    displayBrand("all");
+    displayByBrand("all");
 
-    //Display All The Products
-    $("#all-filter").click(function() {
+    // Display All The Products
+    $("#all-filter").click(function (event) {
+        event.preventDefault();
         $("#phones").empty();
-        displayBrand("all");
+        displayByBrand("all");
     });
 
-    //Display Only Apple Phones
-    $("#apple-filter").click(function () {
+    // Display Only Apple Phones
+    $("#apple-filter").click(function (event) {
+        event.preventDefault();
         $("#phones").empty();
-        displayBrand("apple");
+        displayByBrand("apple");
     });
 
-    //Display Only Samsung Phones
-    $("#samsung-filter").click(function () {
+    // Display Only Samsung Phones
+    $("#samsung-filter").click(function (event) {
+        event.preventDefault();
         $("#phones").empty();
-        displayBrand("samsung");
+        displayByBrand("samsung");
     });
 
-    //Display Only Xiaomi Phones
-    $("#xiaomi-filter").click(function () {
+    // Display Only Xiaomi Phones
+    $("#xiaomi-filter").click(function (event) {
+        event.preventDefault();
         $("#phones").empty();
-        displayBrand("xiaomi");
+        displayByBrand("xiaomi");
     });
 
-    //Display Only Others Phones
-    $("#others-filter").click(function () {
+    // Display Only Others Phones
+    $("#others-filter").click(function (event) {
+        event.preventDefault();
         $("#phones").empty();
-        displayBrand("others");
+        displayByBrand("others");
     });
+
+    // Function to display according to the name given in the search bar
+    function displayByName(searchValue) {
+        for (let i = 0; i < products.length; i++) {
+            if (products[i].name.toUpperCase().includes(searchValue.toUpperCase())) {
+                var stock = "Not In Stock";
+                if (products[i].disponibility) {
+                    stock = "In Stock";
+                }
+
+                $("#phones").append("<div class='card' style='width: 18rem;'><img class='card-img-top' src= "
+                    + products[i].imgUrl
+                    + " alt='Card image cap'><div class='card-body'><h5 class='card-title'>"
+                    + products[i].name
+                    + "</h5><p class='card-text'>"
+                    + products[i].description.slice(0, 140)
+                    + "...</p></div><ul class='list-group list-group-flush'>"
+                    + "<li class='list-group-item'><b>RAM : </b>"
+                    + products[i].ram
+                    + " Go</li>"
+                    + "<li class='list-group-item'><b>Storage : </b>"
+                    + products[i].storage
+                    + " Go</li>"
+                    + "<li class='list-group-item'><b>Camera : </b>"
+                    + products[i].camera
+                    + " px</li>"
+                    + "<li class='list-group-item'><b>Price : </b>"
+                    + products[i].price
+                    + " DT</li>"
+                    + "<li class='list-group-item'><b>Disponibility : </b>"
+                    + stock
+                    + "</li></ul>"
+                    + "<div class='card-body'><a href='#' class='card-link' id='info-card" + i + "' data-toggle='modal' data-target='#exampleModalCenter'>More Info</a>"
+                    + "<a href='#' class='card-link' id='add-card" + i + "'>Add To Card</a>"
+                    + "</div></div>"
+                );
+
+                //Deactivate button add to cart for those who not in stock
+                if (!products[i].disponibility) {
+                    let idCard = "#add-card" + i;
+                    $(idCard).addClass("disabledLink");
+                }
+            }
+        }
+
+    }
+
+    // Add an event Listener to the search button
+    function search() {
+        $("#btn-search").click(function (event) {
+            event.preventDefault();
+            $("#phones").empty();
+            let searchValue = $("#input-search").val();
+            displayByName(searchValue);
+        });
+    }
+    search();
+
+    // Add the functionality to add to cart
+    function addToCart() {
+        $(".card-link").click(function (event) {
+            event.preventDefault();
+            // Add To Cart
+            if ($(this).text() === "Add To Card") {
+                let idCard = $(this).attr("id");
+                let index = idCard.slice(idCard.length - 1);
+                //purchase.push(products[index]);
+
+                // Add the new item to the cart
+                purchase.push(products[index]);
+                // Save the updated cart back to localStorage
+                localStorage.setItem('purchase', JSON.stringify(purchase));
+                $("#nbr-purchase").text(purchase.length);
+            }
+            // More Info
+            if ($(this).text() === "More Info") {
+                let idCard = $(this).attr("id");
+                let index = idCard.slice(idCard.length - 1);
+                $(".modal-title").text(products[index].name);
+                $(".modal-body").text(products[index].description);
+            }
+        });
+    }
+    addToCart();
+
+    // purchase.html
+    // Function to display the list of purchased products
+    function displayPurchasedProducts() {
+        for (let i = 0; i < purchase.length; i++) {
+            $("#list-purchase").append(
+                "<li class='list-group-item'>"
+                + "<h5>"
+                + products[i].name
+                + "</h5>"
+                + "<b>Price : </b>"
+                + products[i].price
+                + " DT</li>"
+            );
+            totalPurchase += products[i].price;
+        }
+        $("#list-purchase").append(
+            "<li class='list-group-item'>"
+            + "<h5>Total Purchase : </h5>"
+            + totalPurchase
+            + " DT</li>"
+        );
+        //$("#total-purchase").append(totalPurchase);
+    }
+
+    displayPurchasedProducts();
+
+    //Miss some issues to fix (indexes, filters and some buttons links)
+    //Miss the registration and login
+
 
 });
 
