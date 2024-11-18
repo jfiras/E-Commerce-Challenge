@@ -1,0 +1,25 @@
+#logo {
+    width: 40px;
+    height: auto;
+}
+
+#my-cart {
+    width: 20px;
+    height: auto;
+}
+
+.carousel-caption {
+    color:black;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#phones {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.p-2 img {
+    height: 320px;
+}
+
