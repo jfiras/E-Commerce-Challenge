@@ -292,32 +292,111 @@ $("document").ready(function () {
     // purchase.html
     // Function to display the list of purchased products
     function displayPurchasedProducts() {
-        for (let i = 0; i < purchase.length; i++) {
+        const registeredUser = getRegisteredUser();
+        if (registeredUser) {
+            //console.log('Welcome back,', registeredUser.username);
+            //console.log('User password:', registeredUser.password);
             $("#list-purchase").append(
                 "<li class='list-group-item'>"
-                + "<h5>"
-                + products[i].name
-                + "</h5>"
-                + "<b>Price : </b>"
-                + products[i].price
+                + "Hello " + registeredUser.username
+                + ", This is your list of purchase:"
+                + "</li>"
+            );
+            for (let i = 0; i < purchase.length; i++) {
+                $("#list-purchase").append(
+                    "<li class='list-group-item'>"
+                    + "<h5>"
+                    + products[i].name
+                    + "</h5>"
+                    + "<b>Price : </b>"
+                    + products[i].price
+                    + " DT</li>"
+                );
+                totalPurchase += products[i].price;
+            }
+            $("#list-purchase").append(
+                "<li class='list-group-item'>"
+                + "<h5>Total Purchase : </h5>"
+                + totalPurchase
                 + " DT</li>"
             );
-            totalPurchase += products[i].price;
+        } else {
+            //console.log('No user found in localStorage.');
+            $("#list-purchase").append(
+                "<li class='list-group-item'>"
+                + "Sorry you can't view your list of purchase if you are not registered."
+                + "</li>"
+            );
         }
-        $("#list-purchase").append(
-            "<li class='list-group-item'>"
-            + "<h5>Total Purchase : </h5>"
-            + totalPurchase
-            + " DT</li>"
-        );
         //$("#total-purchase").append(totalPurchase);
     }
 
     displayPurchasedProducts();
 
-    //Miss some issues to fix (indexes, filters and some buttons links)
-    //Miss the registration and login
+    // Function to register the user and create an instance of this user in the localStorage
+    function registerUser(username, password) {
+        // Check if both username and password are provided
+        if (!username || !password) {
+            $("#msg-register").text("Both username and password are required!");
+            return;
+        }
 
+        // Create a user object
+        const user = {
+            username: username,
+            password: password,
+            dateRegistered: new Date().toISOString()
+        };
+
+        // Save the user object to localStorage
+        localStorage.setItem('user', JSON.stringify(user));
+        return user.username + " registered successfully!";
+    }
+
+    // Event listener for the registration button
+    $("#btn-register").click(function () {
+        const username = $("#username").val();
+        const password = $("#password").val();
+
+        // Call the registerUser function
+        const message = registerUser(username, password);
+
+        // Display success message
+        $("#msg-register").text(message);
+    });
+
+    // Function to retrieve the registered user
+    function getRegisteredUser() {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            return user;
+        } else {
+            return null;
+        }
+    }
+
+    // Function to hide the form of registration if there is a user registered
+    function checkRegisteredUser() {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            $("#registration").hide();
+        }
+    }
+    checkRegisteredUser();
+
+    // Function that manage the content of the contact modal
+    $("#contact-modal-btn").click(function () {
+        const name = $("#contact-name").val();
+        const email = $("#contact-email").val();
+        let title = "Hello Mr/Mrs, " + name + ".";
+        let body = `
+        Thank you for your message! We’ve received it and our team will get back to you shortly.
+        <br><br>
+        A confirmation has been sent to your email at <strong>${email}</strong>. Please check your inbox (and spam folder).
+        `;
+        $("#contact-modal-title").text(title);
+        $("#contact-modal-body").html(body);
+    });
 
 });
 

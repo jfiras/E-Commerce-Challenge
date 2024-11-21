@@ -25,7 +25,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="styles.css" />
-    <title>E-Commerce</title>
+    <title>Contact Us - E-Commerce</title>
   </head>
 
   <body>
@@ -33,6 +33,7 @@
       <img
         id="logo"
         src="https://icons.veryicon.com/png/o/miscellaneous/fu-jia-intranet/product-29.png"
+        alt="E-Commerce Logo"
       />
       <button
         class="navbar-toggler"
@@ -48,15 +49,13 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="index.html"
-              >Home<span class="sr-only">(current)</span></a
-            >
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="about.html">About</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="contact.html">Contact Us</a>
           </li>
           <li class="nav-item">
@@ -67,6 +66,7 @@
               <img
                 id="my-card"
                 src="https://pngimg.com/d/shopping_cart_PNG42.png"
+                alt="Cart"
               />
             </a>
           </li>
@@ -100,28 +100,100 @@
             <p id="msg-register"></p>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input
-            id="input-search"
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button
-            id="btn-search"
-            class="btn btn-outline-success my-2 my-sm-0"
-            type="submit"
-          >
-            Search
-          </button>
-        </form>
       </div>
     </nav>
 
-    <div>
-      <ul id="list-purchase" class="list-group"></ul>
-      <div id="total-purchase"></div>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h1>Contact Us</h1>
+          <p class="lead">
+            Have questions? We'd love to hear from you! Get in touch with us for
+            any inquiries, feedback, or support.
+          </p>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-md-6 offset-md-3">
+          <form action="#" method="POST" id="contact-form">
+            <div class="form-group">
+              <label for="contact-name">Your Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="contact-name"
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="contact-email">Email Address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="contact-email"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="contact-message">Message</label>
+              <textarea
+                class="form-control"
+                id="contact-message"
+                rows="4"
+                placeholder="Your message..."
+                required
+              ></textarea>
+            </div>
+            <button
+              type="button"
+              id="contact-modal-btn"
+              class="btn btn-primary btn-block"
+              data-toggle="modal"
+              data-target="#exampleModalCenter"
+            >
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="exampleModalCenter"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="contact-modal-title">Modal Title</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="contact-modal-body">Modal Body</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="main.js"></script>

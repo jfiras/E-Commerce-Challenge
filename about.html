@@ -25,7 +25,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="styles.css" />
-    <title>E-Commerce</title>
+    <title>About Us - E-Commerce</title>
   </head>
 
   <body>
@@ -33,6 +33,7 @@
       <img
         id="logo"
         src="https://icons.veryicon.com/png/o/miscellaneous/fu-jia-intranet/product-29.png"
+        alt="E-Commerce Logo"
       />
       <button
         class="navbar-toggler"
@@ -48,12 +49,10 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="index.html"
-              >Home<span class="sr-only">(current)</span></a
-            >
-          </li>
           <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item active">
             <a class="nav-link" href="about.html">About</a>
           </li>
           <li class="nav-item">
@@ -67,6 +66,7 @@
               <img
                 id="my-card"
                 src="https://pngimg.com/d/shopping_cart_PNG42.png"
+                alt="Cart"
               />
             </a>
           </li>
@@ -100,28 +100,57 @@
             <p id="msg-register"></p>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input
-            id="input-search"
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button
-            id="btn-search"
-            class="btn btn-outline-success my-2 my-sm-0"
-            type="submit"
-          >
-            Search
-          </button>
-        </form>
       </div>
     </nav>
 
-    <div>
-      <ul id="list-purchase" class="list-group"></ul>
-      <div id="total-purchase"></div>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h1>About Us</h1>
+          <p class="lead">
+            Welcome to our e-commerce store! We specialize in providing the
+            latest and greatest mobile phones from top brands like Apple,
+            Samsung, Xiaomi, and many more. Our goal is to bring you the best
+            shopping experience, offering top-quality products at competitive
+            prices.
+          </p>
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-md-6">
+          <h3>Our Mission</h3>
+          <p>
+            We aim to make mobile phone shopping simple and accessible to
+            everyone. With our user-friendly platform, we provide a wide range
+            of smartphones to suit your needs, whether you're looking for a
+            high-end flagship phone or an affordable budget option.
+          </p>
+        </div>
+        <div class="col-md-6">
+          <h3>Why Choose Us?</h3>
+          <ul>
+            <li>Wide selection of mobile phones from top brands</li>
+            <li>Competitive prices to give you the best deals</li>
+            <li>Fast and secure shipping to your doorstep</li>
+            <li>
+              Excellent customer support to assist you every step of the way
+            </li>
+            <li>Easy and convenient returns policy</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-md-12">
+          <h3>Our Promise</h3>
+          <p>
+            We promise to deliver high-quality products that meet your needs,
+            backed by great customer service. We strive to build long-lasting
+            relationships with our customers, ensu
+          </p>
+        </div>
+      </div>
     </div>
 
     <script src="main.js"></script>
