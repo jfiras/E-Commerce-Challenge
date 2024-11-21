@@ -350,7 +350,8 @@ $("document").ready(function () {
 
         // Save the user object to localStorage
         localStorage.setItem('user', JSON.stringify(user));
-        return user.username + " registered successfully!";
+        alert(user.username + " registered successfully!");
+        window.location.reload();
     }
 
     // Event listener for the registration button
@@ -381,6 +382,9 @@ $("document").ready(function () {
         if (user) {
             $("#registration").hide();
         }
+        else {
+            $("#logout").hide();
+        }
     }
     checkRegisteredUser();
 
@@ -397,6 +401,18 @@ $("document").ready(function () {
         $("#contact-modal-title").text(title);
         $("#contact-modal-body").html(body);
     });
+
+    // Function to logout
+    $("#btn-logout").click(function () {
+        console.log(purchase);
+        // Clear user data from localStorage
+        localStorage.removeItem("user");
+        // Clear purchase list from localStorage
+        localStorage.removeItem("purchase");
+        // Redirect to the home page
+        window.location.href = './index.html';
+    });
+
 
 });
 
