@@ -269,7 +269,7 @@ $("document").ready(function () {
             // Add To Cart
             if ($(this).text() === "Add To Card") {
                 let idCard = $(this).attr("id");
-                let index = idCard.slice(idCard.length - 1);
+                let index = Number(idCard.slice(idCard.length - 1));
                 //purchase.push(products[index]);
 
                 // Add the new item to the cart
@@ -294,8 +294,8 @@ $("document").ready(function () {
     function displayPurchasedProducts() {
         const registeredUser = getRegisteredUser();
         if (registeredUser) {
-            //console.log('Welcome back,', registeredUser.username);
-            //console.log('User password:', registeredUser.password);
+            //console.log(registeredUser.username);
+            //console.log(registeredUser.password);
             $("#list-purchase").append(
                 "<li class='list-group-item'>"
                 + "Hello " + registeredUser.username
@@ -306,13 +306,13 @@ $("document").ready(function () {
                 $("#list-purchase").append(
                     "<li class='list-group-item'>"
                     + "<h5>"
-                    + products[i].name
+                    + purchase[i].name
                     + "</h5>"
                     + "<b>Price : </b>"
-                    + products[i].price
+                    + purchase[i].price
                     + " DT</li>"
                 );
-                totalPurchase += products[i].price;
+                totalPurchase += purchase[i].price;
             }
             $("#list-purchase").append(
                 "<li class='list-group-item'>"
